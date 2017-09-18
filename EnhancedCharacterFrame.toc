@@ -1,0 +1,10 @@
+## Interface: 70300
+## Title: EnhancedCharacterFrame
+## Author: McHyra
+## Notes: Additional features for the character frame
+## Version: 1.0.0
+
+libs/load.xml
+templates/ItemInfoTemplate.xml
+
+Core.lua
