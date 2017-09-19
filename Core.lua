@@ -93,7 +93,7 @@ end
 
 function ECF:RenderItemInfo()
     for slot, info in pairs(itemInfo) do
-        if (info.ItemLevel ~= nil and info.IsRendered == false) then
+        if (info.ItemLevel ~= nil and info.ItemLevel ~= 1 and info.IsRendered == false) then
             itemInfo[slot].IsRendered = true;
 
             if info.Alignment == "LEFT" then
@@ -101,7 +101,6 @@ function ECF:RenderItemInfo()
                 ECF[slot]:SetPoint("TOPLEFT", "Character"..slot, "TOPRIGHT", 7, -1);
                 ECF[slot]:SetPoint("BOTTOMLEFT", "Character"..slot, "BOTTOMRIGHT", 7, 0);
             elseif info.Alignment == "RIGHT" then
-                print("RIGHT");
                 ECF[slot] = CreateFrame("Frame", nil, PaperDollItemsFrame, "ECF_ItemInfoRightTemplate");        
                 ECF[slot]:SetPoint("TOPRIGHT", "Character"..slot, "TOPLEFT", -8, -1);
                 ECF[slot]:SetPoint("BOTTOMRIGHT", "Character"..slot, "BOTTOMLEFT", -8, 0);
