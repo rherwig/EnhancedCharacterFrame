@@ -118,6 +118,8 @@ function ECF:RenderItemInfo()
                 ECF[slot]:SetPoint("BOTTOMLEFT", "Character"..slot, "TOPLEFT", 1, 0);
                 ECF[slot]:SetPoint("BOTTOMRIGHT", "Character"..slot, "TOPRIGHT", 1, 0);
             end
+
+            ECF[slot]:Hide();
         end
 
         if (info.ItemLevel ~= nil and info.ItemLevel ~= 1) then
