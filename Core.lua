@@ -63,6 +63,7 @@ local slots = {
 local itemInfo = {};
 
 function ECF:OnInitialize()
+    ECF:InitItemInfo();
     hooksecurefunc("PaperDollFrame_SetItemLevel", ECF.SetItemLevel);
 end
 
@@ -73,27 +74,35 @@ function ECF:SetItemLevel(frame, player)
 
     CharacterStatsPane.ItemLevelFrame.Value:SetFont(FONT, 12);
 
-    ECF:PopulateItemInfo();        
+    ECF:UpdateItemLevel();        
     ECF:RenderItemInfo();
 end
 
-function ECF:PopulateItemInfo()
+function ECF:InitItemInfo()
     for slot, info in pairs(slots) do 
-        if (itemInfo[slot] == nil or itemInfo[slot].ItemLevel == nil) then
-            local ilvl, quality = ECF:GetItemInfo(slot);        
-            itemInfo[slot] = {
-                ItemLevel = ilvl,
-                Quality = quality,
-                Alignment = info.Alignment,
-                IsRendered = false,
-            };
-        end
+        local ilvl, quality, isEquipped = ECF:GetItemInfo(slot);        
+        itemInfo[slot] = {
+            ItemLevel = ilvl,
+            Quality = quality,
+            Alignment = info.Alignment,
+            IsRendered = false,
+            isEquipped = isEquipped
+        };
+    end
+end
+
+function ECF:UpdateItemLevel()
+    for slot, info in pairs(slots) do 
+        local ilvl, quality, isEquipped = ECF:GetItemInfo(slot);   
+        itemInfo[slot].ItemLevel = ilvl;
+        itemInfo[slot].Quality = quality;
+        itemInfo[slot].isEquipped = isEquipped;
     end
 end
 
 function ECF:RenderItemInfo()
     for slot, info in pairs(itemInfo) do
-        if (info.ItemLevel ~= nil and info.ItemLevel ~= 1 and info.IsRendered == false) then
+        if info.IsRendered == false then
             itemInfo[slot].IsRendered = true;
 
             if info.Alignment == "LEFT" then
@@ -109,10 +118,14 @@ function ECF:RenderItemInfo()
                 ECF[slot]:SetPoint("BOTTOMLEFT", "Character"..slot, "TOPLEFT", 1, 0);
                 ECF[slot]:SetPoint("BOTTOMRIGHT", "Character"..slot, "TOPRIGHT", 1, 0);
             end
+        end
 
+        if (info.ItemLevel ~= nil and info.ItemLevel ~= 1) then
             ECF[slot].text:SetText(info.ItemLevel);
             ECF[slot].text:SetTextColor(GetItemQualityColor(info.Quality));
             ECF[slot]:Show();
+        elseif info.isEquipped == false then
+            ECF[slot]:Hide();
         end
     end
 end
@@ -122,11 +135,11 @@ function ECF:GetItemInfo(slot)
     local itemLink = GetInventoryItemLink("player", slotId);
 
     if itemLink == nil then
-        return nil;
+        return nil, nil, false;
     end
 
     local _, _, rarity = GetItemInfo(itemLink);
     local itemLevel = ItemUpgrade:GetUpgradedItemLevel(itemLink);
 
-    return itemLevel, rarity;
+    return itemLevel, rarity, true;
 end
