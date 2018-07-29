@@ -1,8 +1,8 @@
-## Interface: 70300
+## Interface: 80000
 ## Title: EnhancedCharacterFrame
 ## Author: McHyra
 ## Notes: Additional features for the character frame
-## Version: 1.0.0
+## Version: 1.1.0
 
 libs/load.xml
 templates/ItemInfoTemplate.xml

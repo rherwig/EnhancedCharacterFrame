@@ -1,12 +1,12 @@
-tag 2a15ba125380849df661a837e9d251eb0933e497 Release-70300-29
+tag 74a4893b4dd1008c1702a98bebcf0080dd1231b3 Release-80000-30
 Author:	Alar of Runetotem <alar@aspide.it>
-Date:	Thu Aug 31 22:42:26 2017 +0200
+Date:	Thu Jul 19 22:46:27 2018 +0200
 
-Toc updated to 70300
+BFA
 
-commit a8e342c2525bcf013e5e0d8246a146f2b9deb9e9
+commit bb6dcff130a8f4298c177ef5eb5c055c905eca34
 Author: Alar of Runetotem <alar@aspide.it>
-Date:   Thu Aug 31 22:40:42 2017 +0200
+Date:   Thu Jul 19 22:39:53 2018 +0200
 
-    Recommiting and pushing to trigger packager
+    TOC bump
 
